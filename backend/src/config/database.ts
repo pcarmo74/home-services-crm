@@ -9,6 +9,7 @@ const pool = new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
 pool.on('error', (err) => {
@@ -22,8 +23,9 @@ export async function initializeDatabase(): Promise<void> {
     const result = await client.query('SELECT NOW()');
     logger.info('✅ Connected to PostgreSQL:', result.rows[0]);
     client.release();
-  } catch (error) {
-    logger.error('❌ Database connection failed:', error);
+  } catch (error: any) {
+    console.error('❌ Database connection failed. Full error:', error.message);
+    console.error('Error code:', error.code);
     throw error;
   }
 }
