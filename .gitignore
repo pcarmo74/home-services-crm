@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment variables (secrets - never commit these)
+.env
+.env.local
+*/.env
+*/.env.local
+
+# Build outputs
+.next/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+*/.DS_Store
+
+# Editor
+.vscode/
+.idea/
